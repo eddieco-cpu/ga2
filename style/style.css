@@ -86,3 +86,13 @@ li a:hover h4 {
 .btn_add:active {
     background-color: darkslateblue;
 }
+.btn_turn-off {
+    text-decoration: none;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 40px;
+}
+.btn_turn-off:hover {
+    color: orange;
+}
