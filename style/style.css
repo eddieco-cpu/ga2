@@ -96,3 +96,15 @@ li a:hover h4 {
 .btn_turn-off:hover {
     color: orange;
 }
+
+.qa {
+    height: 400px;
+    overflow: hidden;
+    opacity: 1;
+    transition: height 0.4s ease, opacity 0.8s ease;
+}
+.qa-none {
+    height: 0;
+    opacity: 0;
+    transition: height 0.4s ease, opacity 0.8s ease;
+}

@@ -47,7 +47,7 @@
       ></iframe
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <h1>This is About page</h1>
+    <h1>This is Survey page</h1>
     <nav>
       <a class="nav_link nav_link-home" href="./index.html">home</a>
       <a class="nav_link nav_link-about" href="./about.html">about</a>
@@ -57,13 +57,51 @@
   </nav>
     <hr />
 
-    <h3>About Us</h3>
-    <h3>Sitting down doesn't mean stagnant.</h3>
-    <p style="width: 40%">
-      我們的願景是成為每個人生活的完美支撐。當您在體驗生活、征戰職場時，給予您最可靠的後援。
-      傢俱是一輩子相處最久的夥伴，它的存在深深影響著生活與健康。Backbone®
-      椎座工學 所設計的每一款工學椅與工作桌，
-      都以支撐性、舒適度、耐久度作為最優先的考量，打造輕鬆生活、舒適工作的友善環境。
-    </p>
+    <h3>問卷調查</h3>
+    <div class="qa">
+        <h3>您喜歡我們的網站嗎?</h3>
+        <p class="qa_iflikes">
+            <label for="like">
+                <input type="radio" id="like" name="feeling" value="like" class="qa_iflike iflike_like">
+                喜歡
+            </label>
+            <label for="nofeel">
+                <input type="radio" id="nofeel" name="feeling" value="nofeel" class="qa_iflike iflike_nofeel">
+                沒感覺
+            </label>
+            <label for="hate">
+                <input type="radio" id="hate" name="feeling" value="hate" class="qa_iflike iflike_hate">
+                討厭
+            </label>
+        </p>
+        <br>
+        <textarea name="why" id="" cols="30" rows="10" placeholder="說說原因?" class="qa_why"></textarea>
+        <br>
+        <br>
+        <span>我們怎麼稱呼你?</span><br>
+        <input type="text" name="visiter" class="qa_visiter">
+        <br>
+        <br>
+        <button class="qa_subimt">提交</button>
+    </div>
+    
+    <script>
+        const qa_block = document.querySelector('.qa')
+        const likeOpts = document.querySelectorAll('.qa_iflike')
+        const likeOptsArr = Array.prototype.slice.call(likeOpts)
+        const submit = document.querySelector('.qa_subimt')
+        let iflike
+
+        submit.addEventListener('click', () => {
+            
+            if(!likeOptsArr.find(el => el.checked === true)) return alert('請選擇喜歡的程度')
+            console.log(likeOptsArr.find(el => el.checked === true).value)
+            iflike = likeOptsArr.find(el => el.checked === true).value
+            
+            alert('收到了，很謝謝回覆!')
+            qa_block.classList.add('qa-none')
+        })
+
+    </script>
   </body>
 </html>
