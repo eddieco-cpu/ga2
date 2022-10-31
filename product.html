@@ -62,6 +62,32 @@
         <h2 class="type"></h2>
         <h5 class="name"></h5>
         <p class="des"></p>
+        <hr>
+        <h1>
+          價錢：
+          <b class="value" style="font-size: 50px; color: darkslateblue;"></b>
+          <span class="currency"></span>
+        </h1>
+
+        <!-- btn -->
+        <a href="#cart_add" class="btn_add cart_add" id="consider_add_cart">加入購物車?</a>
+
+        <!-- block -->
+        <div id="cart_add">
+          <h2 class="type"></h2>
+          <h5 class="name"></h5>
+          <hr>
+          <p>
+            價錢：
+            <b class="value" style="font-size: 50px; color: darkslateblue;"></b>
+            <span>USD</span>
+          </p>
+          <hr>
+          <p class="btn_add-line">
+            <a href="#" class="btn_add btn_add_no" id="cancel_add_cart">取消加入</a>
+            <a href="#" class="btn_add btn_add_yes" id="confirm_add_cart">確定加入</a>
+          </p>
+        </div>
     </section>
 
     <script>
@@ -75,7 +101,9 @@
                 ],
                 type: 'Executive Chair 旗艦椅',
                 name: '商業叢林的王者風範',
-                des: '全⽅位調節的人體工學旗艦椅款，鋁合⾦ 4D 調節扶手， 2D 調節頭枕，精密線控底盤，高強度絞簧腰靠設計，給予用戶強而有力的全面支撐性能。'
+                des: '全⽅位調節的人體工學旗艦椅款，鋁合⾦ 4D 調節扶手， 2D 調節頭枕，精密線控底盤，高強度絞簧腰靠設計，給予用戶強而有力的全面支撐性能。',
+                currency: 'USD',
+                value: 20
             },
             {
                 id: 'ergonomic',
@@ -86,7 +114,9 @@
                 ],
                 type: 'Ergonomic Chair 工學椅／辦公椅',
                 name: '厚實圓潤，有如沈入棕熊柔軟的懷抱',
-                des: '具有強力支撐的彈性網布讓椅背得以保留簡潔圓潤的外型，在職場上辛勤勞神的路途上，有一個溫暖厚實的擁抱支持著你。'
+                des: '具有強力支撐的彈性網布讓椅背得以保留簡潔圓潤的外型，在職場上辛勤勞神的路途上，有一個溫暖厚實的擁抱支持著你。',
+                currency: 'USD',
+                value: 16
             },
             {
                 id: 'training',
@@ -97,7 +127,9 @@
                 ],
                 type: '​Training Chair  培訓椅',
                 name: '機能與外觀兼備，高級商務培訓首選​​',
-                des: '由曾經幫 Herman Miller POSH 設計椅款的設計師 Wayne 所設計，渾圓造型收斂至兩側，培訓場合全場排開，如同企鵝般集體出沒，討人喜愛。'
+                des: '由曾經幫 Herman Miller POSH 設計椅款的設計師 Wayne 所設計，渾圓造型收斂至兩側，培訓場合全場排開，如同企鵝般集體出沒，討人喜愛。',
+                currency: 'USD',
+                value: 14
             }
         ]
         let product
@@ -116,9 +148,11 @@
             imgArr += `<img src=${itm} alt="">`
         })
         document.querySelector('.img_arr').innerHTML = imgArr
-        document.querySelector('.type').innerText = product.type
-        document.querySelector('.name').innerText = product.name
+        document.querySelectorAll('.type').forEach(el => el.innerText = product.type)
+        document.querySelectorAll('.name').forEach(el => el.innerText = product.name)
         document.querySelector('.des').innerText = product.des
+        document.querySelectorAll('.value').forEach(el => el.innerText = product.value)
+        document.querySelector('.currency').innerText = product.currency
     }
     </script>
 </body>
