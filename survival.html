@@ -84,14 +84,14 @@
         <br>
         <br>
         <button class="qa_push--layer">確認</button>
-        <button class="qa_subimt--layer">提交</button>
+        <button class="qa_sbmt--layer" style="position: relative; z-index: 3;">提交</button>
     </div>
     
     <script>
         const qa_block = document.querySelector('.qa')
         const likeOpts = document.querySelectorAll('.qa_iflike')
         const likeOptsArr = Array.prototype.slice.call(likeOpts)
-        const submit = document.querySelector('.qa_subimt--layer')
+        const submit = document.querySelector('.qa_sbmt--layer')
         const push = document.querySelector('.qa_push--layer')
 
         let iflike
@@ -127,7 +127,8 @@
               });
             */
 
-            alert('確認資料，並 push datalayer')
+            alert('資料已確認，並 push datalayer')
+            qa_block.classList.add('qa-mask')
         })
 
 

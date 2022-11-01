@@ -81,11 +81,26 @@
           <h5 class="name"></h5>
           <hr>
           <p>
-            價錢：
-            <b class="value" style="font-size: 50px; color: darkslateblue;"></b>
+            單價：
+            <b class="value" style="font-size: 28px; color: darkslateblue;"></b>
             <span>USD</span>
           </p>
+          <p>
+            數量：
+            <b class="pcs_value" style="font-size: 28px; color: rgb(101, 81, 235);">12</b>
+            <span>pcs</span>
+          </p>
+          <input type="range" min="1" max="10" value="1" class="pcs_range">
           <hr>
+    
+          <p style="text-align: right;">
+            總價：
+            <b class="total_value" style="font-size: 50px; color: darkslateblue;"></b>
+            <span>USD</span>
+          </p>
+          <p style="text-align: right; transform: translateY(-10px);">* 一次最多選 10 pcs</p>
+          <br>
+
           <p class="btn_add-line">
             <a href="#" class="btn_add cancel_add_cart" id="cancel_add_cart">取消加入</a>
             <a href="#" class="btn_add confirm_add_cart" id="confirm_add_cart">確定加入</a>
@@ -94,6 +109,7 @@
     </section>
 
     <script>
+      //fake data
         let products = [
             {
                 id: 'executive',
@@ -137,52 +153,65 @@
         ]
         let product
 
-    let parsingURL = new URL(window.location.toString())
-    let params = parsingURL.searchParams
-    if( params.has('id') && params.get('id') ) {
-        product = products.find(el => el.id === params.get('id'))
-    } else {
-        history.go(-1)
-    }
+      //load fakedata
+        let parsingURL = new URL(window.location.toString())
+        let params = parsingURL.searchParams
+        if( params.has('id') && params.get('id') ) {
+            product = products.find(el => el.id === params.get('id'))
+        } else {
+            history.go(-1)
+        }
 
-    let imgArr = ''
-    if(product) {
-        product.imgs.forEach(itm => {
-            imgArr += `<img src=${itm} alt="">`
+        let imgArr = ''
+        if(product) {
+            product.imgs.forEach(itm => {
+                imgArr += `<img src=${itm} alt="">`
+            })
+            document.querySelector('.img_arr').innerHTML = imgArr
+            document.querySelectorAll('.type').forEach(el => el.innerText = product.type)
+            document.querySelectorAll('.name').forEach(el => el.innerText = product.name)
+            document.querySelector('.des').innerText = product.des
+            document.querySelectorAll('.value').forEach(el => el.innerText = product.value)
+            document.querySelector('.currency').innerText = product.currency
+        }
+
+      //control pcs
+        let pcs_range = document.querySelector('.pcs_range')
+        let pcs_value = document.querySelector('.pcs_value')
+        let total_value = document.querySelector('.total_value')
+
+        pcs_value.innerText = pcs_range.value
+        total_value.innerText = pcs_range.value * product.value
+        pcs_range.addEventListener('input', () => {
+          pcs_value.innerText = pcs_range.value
+          total_value.innerText = pcs_range.value * product.value
         })
-        document.querySelector('.img_arr').innerHTML = imgArr
-        document.querySelectorAll('.type').forEach(el => el.innerText = product.type)
-        document.querySelectorAll('.name').forEach(el => el.innerText = product.name)
-        document.querySelector('.des').innerText = product.des
-        document.querySelectorAll('.value').forEach(el => el.innerText = product.value)
-        document.querySelector('.currency').innerText = product.currency
-    }
 
 
-
-    // g tag
-    document.getElementById('confirm_add_cart').addEventListener('click', ()=> {
-      let tag = {
-        currency: product.currency,
-        value: product.value,
-        items: [
-          {
+      // g tag
+        document.getElementById('confirm_add_cart').addEventListener('click', ()=> {
+          let tag = {
+            currency: product.currency,
+            value: product.value * pcs_range.value,
+            items: [
+              {
+                item_id: product.id,
+                item_name: product.type + '。' + product.name,
+                item_brand: "Backbone",
+                item_category: "Chair",
+                item_category2: "Seat",
+                item_category3: product.id,
+                price: product.value,
+                quantity: pcs_range.value * 1,
+              }
+            ],
             item_id: product.id,
-            item_name: product.type + '。' + product.name,
-            item_brand: "Backbone",
-            item_category: "Chair",
-            item_category2: "Seat",
-            item_category3: product.id,
-            price: product.value,
-            quantity: 1
+            quantity: pcs_range.value * 1,
+            price: product.value
           }
-        ],
-        quantity: 1,
-        item_id: product.id
-      }
-      console.log('--- tag ---', tag)
-      gtag("event", "add_to_cart", tag);
-    })
+          console.log('--- tag ---', tag)
+          gtag("event", "add_to_cart", tag);
+        })
     </script>
 </body>
 </html>
