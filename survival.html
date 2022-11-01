@@ -83,6 +83,7 @@
         <input type="text" name="visiter" class="qa_visiter">
         <br>
         <br>
+        <button class="qa_push--layer">確認</button>
         <button class="qa_subimt--layer">提交</button>
     </div>
     
@@ -91,12 +92,14 @@
         const likeOpts = document.querySelectorAll('.qa_iflike')
         const likeOptsArr = Array.prototype.slice.call(likeOpts)
         const submit = document.querySelector('.qa_subimt--layer')
+        const push = document.querySelector('.qa_push--layer')
 
         let iflike
         let iflikeRes
         let ifliker
 
-        submit.addEventListener('click', () => {
+        
+        push.addEventListener('click', () => {
             
             if(!likeOptsArr.find(el => el.checked === true)) return alert('請選擇喜歡的程度')
 
@@ -115,6 +118,25 @@
               survival_message: iflikeRes,
               survival_visitor: ifliker
             })
+
+            /*
+              gtag('event','read_article', {
+                  "author":"Bill Q",
+                  "title":"How to Build a Backpack",
+                  "number_of_pages":2,
+              });
+            */
+
+            alert('確認資料，並 push datalayer')
+        })
+
+
+
+        submit.addEventListener('click', () => {
+            
+            if(!likeOptsArr.find(el => el.checked === true)) return alert('請選擇喜歡的程度')
+
+            console.log('--- if like data --- \n', iflike, iflikeRes, ifliker)
 
             /*
               gtag('event','read_article', {
