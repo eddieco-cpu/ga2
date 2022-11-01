@@ -83,22 +83,47 @@
         <input type="text" name="visiter" class="qa_visiter">
         <br>
         <br>
-        <button class="qa_subimt">提交</button>
+        <button class="qa_subimt--layer">提交</button>
     </div>
     
     <script>
         const qa_block = document.querySelector('.qa')
         const likeOpts = document.querySelectorAll('.qa_iflike')
         const likeOptsArr = Array.prototype.slice.call(likeOpts)
-        const submit = document.querySelector('.qa_subimt')
+        const submit = document.querySelector('.qa_subimt--layer')
+
         let iflike
+        let iflikeRes
+        let ifliker
 
         submit.addEventListener('click', () => {
             
             if(!likeOptsArr.find(el => el.checked === true)) return alert('請選擇喜歡的程度')
-            console.log(likeOptsArr.find(el => el.checked === true).value)
+
             iflike = likeOptsArr.find(el => el.checked === true).value
+            iflikeRes = document.querySelector('.qa_why').value ? document.querySelector('.qa_why').value : 'no_reason'
+            ifliker = document.querySelector('.qa_visiter').value ? document.querySelector('.qa_visiter').value : 'no_name'
+
+            console.log('--- if like data --- \n', iflike, iflikeRes, ifliker)
+
             
+            //-- Dlayer --
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: "survival_ifLike_via_datalayer",
+              survival_value: iflike,
+              survival_message: iflikeRes,
+              survival_visitor: ifliker
+            })
+
+            /*
+              gtag('event','read_article', {
+                  "author":"Bill Q",
+                  "title":"How to Build a Backpack",
+                  "number_of_pages":2,
+              });
+            */
+
             alert('收到了，很謝謝回覆!')
             qa_block.classList.add('qa-none')
         })
